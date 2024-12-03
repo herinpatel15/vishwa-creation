@@ -1,0 +1,65 @@
+client/node_modules
+client/dist
+client/dist-ssr
+
+server/node_modules
+server/dist
+
+android-app/node_modules/
+
+# Expo
+.expo/
+android-app/dist/
+android-app/web-build/
+expo-env.d.ts
+
+.env
+
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+android-app/app-example
+
+
+client/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
