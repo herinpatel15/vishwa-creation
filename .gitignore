@@ -6,6 +6,10 @@ server/node_modules
 server/dist
 server/google_credential.json
 
+prototype/node_modules
+prototype/dist
+prototype/google_credentials.json
+
 android-app/node_modules/
 
 # Expo
