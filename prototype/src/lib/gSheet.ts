@@ -1,5 +1,6 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
+import { SheetReturn } from '../types';
 
 if (!process.env.GOOGLE_EMAIL) throw new Error("ERROR_ENV: GOOGLE_EMAIL missing")
 if (!process.env.GOOGLE_KEY) throw new Error("ERROR_ENV: GOOGLE_KEY missing")
@@ -19,28 +20,41 @@ export async function getTitle() {
 }
 
 // get sheets list 
-export async function getSheetsList() {
+export async function getSheetsList(): Promise<SheetReturn<string[]>> {
     try {
         await doc.loadInfo()
         const sheetsList = doc.sheetsByIndex.map(sheet => sheet.title)
         return {
             code: 1,
-            massage: "Sheet list :)",
+            message: "Sheet list :)",
             data: sheetsList
         }
     } catch (err) {
         return {
             code: 0,
-            massage: "Sheet List error :(",
-            data: []
+            message: "Sheet List error :("
         }
     }
 }
 
-export async function createNewSheet(sheetName: string) {
-    await doc.loadInfo()
-    const isExist = getSheetsList.
-    const addsheet = await doc.addSheet({title: sheetName})
+export async function createNewSheet(sheetName: string): Promise<SheetReturn<string[]>> {
+    try {
+        await doc.loadInfo()
+        const isExist = (await getSheetsList()).data?.some(e => e === sheetName);
+        if (isExist) return { code: 0, message: "Sheet alrady exist :(" }
+        const addsheet = await doc.addSheet({ title: sheetName })
+        const newSheetList = (await getSheetsList()).data
+        return {
+            code: 1,
+            message: "Sheet create successfully :)",
+            data: newSheetList
+        }
+    } catch (err) {
+        return {
+            code: 0,
+            message: "Create new sheet error :("
+        }
+    }
 }
 
 // get all row data in sheet
