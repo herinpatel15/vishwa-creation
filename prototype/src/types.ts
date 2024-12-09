@@ -3,3 +3,10 @@ export type SheetReturn<TypeParam> = {
     message: string,
     data?: TypeParam
 }
+
+export type WorkerSheet = {
+    timeStream: string,
+    date: string,
+    sari: number,
+    price: number
+}
