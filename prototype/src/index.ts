@@ -7,7 +7,7 @@ import { createNewSheet, getTitle, setRowInSheet } from "./lib/gSheet";
     // getAllRowData('admins')
     // console.log(await createNewSheet('test123'));
     const data = {
-        timeStream: '10:00 AM',
+        month: 12,
         date: '2024-12-08',
         sari: 2,
         price: 2,

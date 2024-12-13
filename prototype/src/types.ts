@@ -5,7 +5,7 @@ export type SheetReturn<TypeParam> = {
 }
 
 export type WorkerSheet = {
-    timeStream: string,
+    month: number,
     date: string,
     sari: number,
     price: number

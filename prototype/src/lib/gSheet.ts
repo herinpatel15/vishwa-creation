@@ -1,7 +1,6 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 import { SheetReturn, WorkerSheet } from '../types';
-import { error } from 'console';
 
 if (!process.env.GOOGLE_EMAIL) throw new Error("ERROR_ENV: GOOGLE_EMAIL missing")
 if (!process.env.GOOGLE_KEY) throw new Error("ERROR_ENV: GOOGLE_KEY missing")
@@ -39,13 +38,19 @@ export async function getSheetsList(): Promise<SheetReturn<string[]>> {
 }
 
 // create new sheet
-export async function createNewSheet(sheetName: string): Promise<SheetReturn<string[]>> {
+export async function createNewSheet(
+    {
+        sheetName
+    } : {
+        sheetName: string
+    }
+): Promise<SheetReturn<string[]>> {
     try {
         await doc.loadInfo()
         const isExist = (await getSheetsList()).data?.some(e => e === sheetName);
         if (isExist) return { code: 0, message: "Sheet alrady exist :(" }
-        const newSheet = await doc.addSheet({ 
-            title: sheetName, 
+        const newSheet = await doc.addSheet({
+            title: sheetName,
         })
         await newSheet.setHeaderRow(['timeStream', 'date', 'sari', 'price'])
         const newSheetList = (await getSheetsList()).data
@@ -63,7 +68,15 @@ export async function createNewSheet(sheetName: string): Promise<SheetReturn<str
 }
 
 // add new row in sheet 
-export async function setRowInSheet({sheetName, data}: {sheetName: string, data: WorkerSheet}): Promise<SheetReturn<string[]>> {
+export async function setRowInSheet(
+    {
+        sheetName,
+        data
+    } : {
+        sheetName: string,
+        data: WorkerSheet
+    }
+): Promise<SheetReturn<string[]>> {
     try {
         await doc.loadInfo()
         const sheet = doc.sheetsByTitle[sheetName]
@@ -73,14 +86,14 @@ export async function setRowInSheet({sheetName, data}: {sheetName: string, data:
             data
         ])
         console.log(addRow);
-        
+
         return {
             code: 0,
             message: 'new row added :)'
         }
     } catch (err) {
         console.log(err);
-        
+
         return {
             code: 0,
             message: 'add row error :('
@@ -89,7 +102,13 @@ export async function setRowInSheet({sheetName, data}: {sheetName: string, data:
 }
 
 // get all row data in sheet
-export async function getAllRowInSheet(sheetName: string) {
+export async function getRowInSheet(
+    {
+        sheetName
+    } : {
+        sheetName: string
+    }
+) {
     await doc.loadInfo()
     const sheet = doc.sheetsByTitle[sheetName]
     const rows = await sheet.getRows()
@@ -102,3 +121,4 @@ export async function getAllRowInSheet(sheetName: string) {
     })
     console.log(data);
 }
+
