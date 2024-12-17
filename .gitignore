@@ -11,11 +11,14 @@ prototype/dist
 prototype/google_credentials.json
 
 android-app/node_modules/
+sempale-app-1/node_modules/
 
 # Expo
 .expo/
 android-app/dist/
 android-app/web-build/
+sempale-app-1/dist/
+sempale-app-1/web-build/
 expo-env.d.ts
 
 .env
@@ -46,6 +49,7 @@ yarn-error.*
 *.tsbuildinfo
 
 android-app/app-example
+sempale-app-1/app-example
 
 
 client/logs
